@@ -5,7 +5,7 @@
 int minimax(char x, char y, char chess[][15], char depth);
 void generator(char chess[][15],char neighbors[][15]);
 void flat(char chess[][15], char sequance[][15]);
-int evaluate(char sequance[][15]);
+int evaluate(char sequance[][15],char color);
 
 void computer_do(char chess[][15])
 {
@@ -30,7 +30,7 @@ void generator(char chess[][15], char neighbors[][15])
 			//开始扫描周围2格内是否有棋子
 			for (int k = -2; k < 2; k++)
 			{
-				for (int l = -2; l < 2; l++)
+				for (int l = -NEIGHBOR_DEPTH; l < NEIGHBOR_DEPTH; l++)
 				{
 					temp_x = x + k;
 					temp_y = y + l;
@@ -93,5 +93,16 @@ void flat(char chess[][15], char sequance[][15])
 		{
 			sequance[i + 62][j] = chess[j][i + j];
 		}
+	}
+}
+
+int evaluate(char sequance[][15],char color)
+{
+	int score;
+	char chenwu[5] = { color,color,color,color,color };
+	char huosi1[]//***************************************************************************************************************************8
+	for (int i = 0; i < 71; i++)
+	{
+		strstr(sequance[i][],)
 	}
 }
