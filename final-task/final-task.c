@@ -2,16 +2,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#define false 0
-#define true 1
-#define DEPTH 3    //需为奇数
-#define KILL_DEPTH 5    //需为奇数
+#include "consts.h"
 
 void draw(char chess[][15]);
 void computer_do(char chess[][15]);
 //_Bool if_leagal(char chess[][15], int x, int y);
 char winner(char chess[][15]);
-enum chesses { empty, white, black };
 
 int main()
 {
@@ -166,7 +162,7 @@ char winner(char chess[][15])
 		}
 	}
 	//"/"这样查找
-	for (int i = 5; i < 14; i++)
+	for (int i = 4; i < 14; i++)
 	{
 		white_num = 0;
 		black_num = 0;
@@ -191,7 +187,7 @@ char winner(char chess[][15])
 		if (white_num == 5)return white;
 		}
 	}
-	for (int i = 1; i < 9; i++)
+	for (int i = 1; i < 10; i++)
 	{
 		white_num = 0;
 		black_num = 0;
@@ -217,7 +213,7 @@ char winner(char chess[][15])
 		}
 	}
 	//"\"这样查找
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		white_num = 0;
 		black_num = 0;
@@ -242,7 +238,7 @@ char winner(char chess[][15])
 			if (white_num == 5)return white;
 		}
 	}
-	for (int i = 1; i < 9; i++)
+	for (int i = 1; i < 10; i++)
 	{
 		white_num = 0;
 		black_num = 0;
@@ -267,6 +263,7 @@ char winner(char chess[][15])
 			if (white_num == 5)return white;
 		}
 	}
+	return 0;
 }
 
 /*_Bool if_leagal(char chess[][15], int x, int y)
