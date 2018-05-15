@@ -98,11 +98,48 @@ void flat(char chess[][15], char sequance[][15])
 
 int evaluate(char sequance[][15],char color)
 {
-	int score;
+	int score = 0;
+	//100000分
 	char chenwu[5] = { color,color,color,color,color };
-	char huosi1[]//***************************************************************************************************************************8
+	//10000分
+	char huosi1[6] = { empty,color,color,color,color,empty };
+	char huosi2[5] = { color,empty,color,color,color };
+	char huosi3[5] = { color,color,empty,color,color };
+	char huosi4[5] = { color,color,color,empty,color };
+	//1000分
+	char sisi1[6] = { empty,color,color,color,color,3 - color };
+	char sisi2[6] = { 3 - color,color,color,color,color,empty };
+	char huosan[5] = { empty,color,color,color,empty };
+	//100分
+	char sisan1[5] = { empty,color,color,color,3 - color };
+	char sisan2[5] = { 3 - color,color,color,color,empty };
+	char huoer[4] = { empty,color,color,empty };
+	//10分
+	char sier1[4] = { empty,color,color,3 - color };
+	char sier2[4] = { 3 - color,color,color,empty };
+	char huoyi[3] = { empty,color,empty };
+	//***************************************************************************************************************************8
 	for (int i = 0; i < 71; i++)
 	{
-		strstr(sequance[i][],)
+		//100000
+		if (strstr(sequance[i], chenwu)) score += 100000;
+		//10000
+		if (strstr(sequance[i], huosi1)) score += 10000;
+		if (strstr(sequance[i], huosi2)) score += 10000;
+		if (strstr(sequance[i], huosi3)) score += 10000;
+		if (strstr(sequance[i], huosi4)) score += 10000;
+		//1000
+		if (strstr(sequance[i], sisi1)) score += 1000;
+		if (strstr(sequance[i], sisi2)) score += 1000;
+		if (strstr(sequance[i], huosan)) score += 1000;
+		//100
+		if (strstr(sequance[i], sisan1)) score += 100;
+		if (strstr(sequance[i], sisan2)) score += 100;
+		if (strstr(sequance[i], huoer)) score += 100;
+		//10
+		if (strstr(sequance[i], sier1)) score += 10;
+		if (strstr(sequance[i], sier2)) score += 10;
+		if (strstr(sequance[i], huoyi)) score += 10;
 	}
+	return score;
 }
