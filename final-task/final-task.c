@@ -4,52 +4,60 @@
 #include <stdlib.h>
 #include "consts.h"
 
-void draw(char chess[][15]);
-void computer_do(char chess[][15]);
-//_Bool if_leagal(char chess[][15], int x, int y);
-char winner(char chess[][15]);
 
 int main()
 {
-	char n1, n2, player_color,computer_color;
+	char x, y, winner = empty;
 	int chess_num=0;
+	extern player_color, computer_color;
 	system("mode con cols=50 lines=22");
-	char chess[15][15] = {0};
+	system("color 8f");
+	char chess[15][15] ;
+	for(int i=0;i<15;i++)
+	{
+		for (int j = 0;j<15 ; j++)
+		{
+			chess[i][j]=empty;
+		}
+	}
 reinput_color:
 	draw(chess);
 	printf("请输入您所控制的棋子颜色:\n1.白色（后手）\n2.黑色（先手）\n");
 	scanf("%d",&player_color);
+	player_color++;
 	fflush(stdin);
 	if (player_color != white && player_color != black)
 	{
 		printf("输入错误！\n");
+		getchar();
 		goto reinput_color;
 	}
-	computer_color = 3 - player_color;
+	computer_color = 5 - player_color;
 	if (chess_num == 0 && player_color == white)
 	{
 		chess[7][7] = computer_color;
 		chess_num++;
 	}
-	while (winner(chess) == empty)
+	while (winner == empty)
 	{
+		winner = winner_is(chess);
 	reinput_position:
 		draw(chess);
 		printf("请输入行号（0-14）：");
-		scanf("%d",&n1);
+		scanf("%d",&x);
 		fflush(stdin);
 		getchar();
-		if (n1 > 14)
+		if (x > 14)
 		{
 			printf("错误行号！！！");
 			getchar();
 			goto reinput_position;
 		}
 		printf("\n请输入列号（a-o）：");
-		scanf("%c", &n2);
+		scanf("%c", &y);
 		fflush(stdin);
 		getchar();
-		if (n2 > 'o'||n2<'a')
+		if (y > 'o'||y<'a')
 		{
 			printf("错误列号！！！");
 			getchar();
@@ -61,9 +69,9 @@ reinput_color:
 			getchar();
 			goto reinput_position;
 		}*/
-		if(chess[n1][n2-'a'] == empty)
+		if(chess[x][y-'a'] == empty)
 		{
-			chess[n1][n2 - 'a'] = player_color;
+			chess[x][y - 'a'] = player_color;
 			chess_num++;
 		}
 		else
@@ -75,7 +83,16 @@ reinput_color:
 		draw(chess);
 		computer_do(chess);
 	}
+	if (winner == player_color)
+	{
+		printf("你赢了\n");
+	}
+	if (winner == computer_color)
+	{
+		printf("你输了\n");
+	}
 	system("pause");
+	return 0;
 }
 
 void draw(char chess[][15])
@@ -98,7 +115,7 @@ void draw(char chess[][15])
 			}
 			else
 			{
-				printf("%c ",chess[i][j]);
+				printf("%c ", chess[i][j] - 1);
 			}
 		}
 		printf("\n");
@@ -106,15 +123,15 @@ void draw(char chess[][15])
 }
 
 
-char winner(char chess[][15])
+char winner_is(char chess[][15])
 {
 	char white_num, black_num;
 	//横向查找
-	for (int i = 0; i < 14; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		white_num = 0;
 		black_num = 0;
-		for (int j = 0; j < 14; j++)
+		for (int j = 0; j < 15; j++)
 		{
 			if (chess[i][j] == white)
 			{
@@ -136,11 +153,11 @@ char winner(char chess[][15])
 		}
 	}
 	//纵向查找
-	for (int i = 0; i < 14; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		white_num = 0;
 		black_num = 0;
-		for (int j = 0; j < 14; j++)
+		for (int j = 0; j < 15; j++)
 		{
 			if (chess[j][i] == white)
 			{
@@ -162,11 +179,11 @@ char winner(char chess[][15])
 		}
 	}
 	//"/"这样查找
-	for (int i = 4; i < 14; i++)
+	for (int i = 4; i < 15; i++)
 	{
 		white_num = 0;
 		black_num = 0;
-		for (int j = 0; j < i; j++)
+		for (int j = 0; j <= i; j++)
 		{
 			if (chess[j][i-j] == white)
 			{
@@ -187,11 +204,11 @@ char winner(char chess[][15])
 		if (white_num == 5)return white;
 		}
 	}
-	for (int i = 1; i < 10; i++)
+	for (int i = 1; i < 11; i++)
 	{
 		white_num = 0;
 		black_num = 0;
-		for (int j = 14; j > i; j--)
+		for (int j = 14; j >= i; j--)
 		{
 			if (chess[i+14-j][j] == white)
 			{
@@ -213,11 +230,11 @@ char winner(char chess[][15])
 		}
 	}
 	//"\"这样查找
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 11; i++)
 	{
 		white_num = 0;
 		black_num = 0;
-		for (int j = 0; j < 14 - i; j++)
+		for (int j = 0; j < 15 - i; j++)
 		{
 			if (chess[i+j][j] == white)
 			{
@@ -238,11 +255,11 @@ char winner(char chess[][15])
 			if (white_num == 5)return white;
 		}
 	}
-	for (int i = 1; i < 10; i++)
+	for (int i = 1; i < 11; i++)
 	{
 		white_num = 0;
 		black_num = 0;
-		for (int j = 0; j < 14 - i; j++)
+		for (int j = 0; j < 15 - i; j++)
 		{
 			if (chess[j][i+j] == white)
 			{
@@ -263,7 +280,7 @@ char winner(char chess[][15])
 			if (white_num == 5)return white;
 		}
 	}
-	return 0;
+	return empty;
 }
 
 /*_Bool if_leagal(char chess[][15], int x, int y)
